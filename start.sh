@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #	LICENSE NOTICE
 
 # charcoalAPI - IoT server-less API for Edge devices
@@ -18,18 +20,5 @@
 # You should have received a copy of the GNU General Public License
 # along with charcoalAPI.  If not, see <https://www.gnu.org/licenses/>.
 
-FROM arm32v6/python:3.6-alpine
-
-WORKDIR /app
-
-COPY ./requirements.txt /app
-
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . /app
-
-EXPOSE 8080
-
-ENV NAME usn
-
-CMD ["python","app.py"]
+sh ./message.sh
+python app.py

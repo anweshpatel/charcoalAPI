@@ -1,8 +1,28 @@
 #	Author : @anweshpatel
 #	Created : 3.14.2019
-#	Project : Unified Sensor Network
+#	Project : charcoalAPI
 #	Module : IoT Aggregator (Metrics) [R-Pi]
-#	Version : v0.0.2 (Alpha 2)
+#	Version : 0.1 (Beta 1)
+
+#	LICENSE NOTICE
+
+# charcoalAPI - IoT server-less API for Edge devices
+# Copyright (C) 2019 Anwesh Anjan Patel
+
+# This file is part of charcoalAPI.
+
+# charcoalAPI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# charcoalAPI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with charcoalAPI.  If not, see <https://www.gnu.org/licenses/>.
 
 import flask
 from flask import request, jsonify
