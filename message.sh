@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #	LICENSE NOTICE
 
@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with charcoalAPI.  If not, see <https://www.gnu.org/licenses/>.
 
-toilet -t "charcoal API"
+figlet -tf banner 'charcoal API' 
 echo "-------------------------------------------"
 
 echo "Serverless IoT API for Edge Devices"

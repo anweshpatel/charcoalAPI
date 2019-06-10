@@ -1,5 +1,9 @@
 charcoalAPI  Copyright (C) 2019  Anwesh Anjan Patel
 
-This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+This program comes with ABSOLUTELY NO WARRANTY; for details run `warranty'.
 This is free software, and you are welcome to redistribute it
-under certain conditions; type `show c' for details.
+under certain conditions; run `tnc' for details.
+
+The above commands maybe run in a new interactive shell using `docker exec'
+command. The above information can be displayed on an interactive shell
+using the `info' command.

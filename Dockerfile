@@ -18,18 +18,28 @@
 # You should have received a copy of the GNU General Public License
 # along with charcoalAPI.  If not, see <https://www.gnu.org/licenses/>.
 
-FROM arm32v6/python:3.6-alpine
+FROM python:3.6-alpine
 
 WORKDIR /app
 
 COPY ./requirements.txt /app
 
+RUN apk add figlet
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app
+
+# Display warranty information and terms and conditions
+RUN echo -e '#!/bin/sh\ncat /app/warranty\necho " "' > /usr/bin/warranty && \
+	chmod +x /usr/bin/warranty && \
+	echo -e '#!/bin/sh\ncat /app/LICENSE\necho " "' > /usr/bin/tnc && \
+	chmod +x /usr/bin/tnc && \
+	echo -e '#!/bin/sh\nsh /app/message.sh' > /usr/bin/info && \
+	chmod +x /usr/bin/info
 
 EXPOSE 8080
 
 ENV NAME usn
 
-CMD ["python","app.py"]
+CMD ["sh","start.sh"]
