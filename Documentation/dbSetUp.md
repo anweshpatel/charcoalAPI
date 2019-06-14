@@ -53,9 +53,81 @@ charcoalAPI is a built on an SQLite3 Relational DB and acts as a TSDB. As the ed
 
 A few labels are set mandatory based on the first developmental and production environments where USN was deployed. These are :-
 
-- Geo location
-- Metric ID
-- Parameter ID
-- Device ID
+1. Geo location
+2. Device ID
+3. Metric ID
+4. Parameter ID
 
-These are not random labels
+Of course we did not pick up these labels at random from a crossword puzzle. They are chosen with meaning, as described in the following subsections:-
+
+### Locations
+
+Three types of locations are used for distributed deployment, to keep track of the deployment scheme, architecture and platform used. These are:-
+
+- **Infrastructure Location** - What type of device or architecture used for the deployment. In case of Unified sensor Nework standards, these can be either WROOM32 or ARMv6/v7. Generally, all remote slave devices are hosted on ESP32, thus, we consider all our edge infrastucture to be uniformly, WROOM32.
+
+- **Platform Location** - What platform is making use of the client device data or serving it. In case of USN, it is always, charcoalAPI
+
+- **Geo Location** - Where is the device physically? This tag is subject to change and devices with similar configuration can be found on different locations. Thus a location tag, generally mapped to an actual ohysical address is mandatorily used in the metadata.
+
+### Device
+
+A certain geo location may involve many different devices. We must be sure which device is sending the data, thus, a device ID or NodeID is used.
+
+### Metrics
+
+What physical inference should we make from the data stored in the tables? Is it acceleration, environment monitoring, or pollution monitoring? The metric ID differentiates physical data types from one another, helping us to determinem which sensor (out of the numerous connected to the slave device) has read those values.
+
+### Parameters
+
+Many times, we do not get a solitary parameter with a metric. Acceleration is almost always measured on three axes; x, y and z. Pollution monitoring may involve sensors that detect, not just CO and CO2, but also NOx and other particles. Thus, it is important to segregate each parameter from a sensor into different tables. This is where the parameter ID comes, at the very end of the heirarchy of the key based search algorithm.
+
+## The first DB
+
+Now that we know about the labels, lets get to creating our first database. Create a directory ```DB``` in the repo clone directory and create a file ```TestDB.db```.
+
+Access this newly creagted database using the command
+
+```BASH
+$ sqlite3 TestDB.db
+```
+
+You'll now be in the sqlite shell. The next set of commands is to enable the column mode and table headers.
+
+```sqlite
+.headers on
+.mode column
+```
+
+Let us now create our first table, the metadata table.
+
+```SQL
+CREATE 	TABLE metadata(
+	tableID TEXT NOT NULL,
+	geoLoc TEXT NOT NULL,
+	deviceID TEXT NOT NULL,
+	metricID TEXT NOT NULL,
+	parameterID TEXT NOT NULL DEFAULT "NA"
+);
+```
+
+This must generate the metadata table as required for our operations. The next step is t mannually enter the tags for each time series table. To insert data, we use the following example command.
+
+```SQL
+INSERT INTO metadata VALUES("t1", "LocTag_1", "ESP_1", "metric_0", "x1");
+```
+
+Keep meaningfull tags as the entry into this table, as it is **for you**, the developer. Also, keep track of your location tags with an available dictionary.
+
+Once the above step is done, it is wisest to create the table to store data. It is a one line command that remains the same for all tables here-on.
+
+```SQL
+CREATE TABLE t1(
+	epoch BIGINT NOT NULL,
+	metric FLOAT NOT NULL
+);
+```
+
+> Do not forget the ";" after every command.
+
+Once created, the charcoalAPI automatically handles the read and write of data with these tables.
