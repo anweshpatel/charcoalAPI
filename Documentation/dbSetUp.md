@@ -131,3 +131,17 @@ CREATE TABLE t1(
 > Do not forget the ";" after every command.
 
 Once created, the charcoalAPI automatically handles the read and write of data with these tables.
+
+To view the data stored, you can easily enter the following line.
+
+```SQL
+SELECT * FROM t1;
+```
+
+With  time, it may happen that the API becomes slow because the tables are being populated faster than they are cleared. In those cases, we need to truncate the tables, or delete the values.
+
+```SQL
+DELETE FROM t1;
+```
+
+SQL is case-insensitive, thus, you can write all the above commands in small. It may as well go unsaid, do not repeat a name in case change as you do in other programming languages. MeTaDaTa and metdata are same to sqlite.
